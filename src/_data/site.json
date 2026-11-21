@@ -1,0 +1,16 @@
+{
+  "name": "ELEVENTY SILICON",
+  "shortName": "SILICON",
+  "domain": "example.com",
+  "url": "https://example.com",
+  "prompt": "~/silicon.dev$",
+  "description": "Technical notes, hardware experiments, and engineering documentation.",
+  "author": "Your Name",
+  "email": "hello@example.com",
+  "github": "https://github.com/yourusername",
+  "githubLabel": "github.com/yourusername",
+  "chipTitle": "SILICON",
+  "chipRev": "REV 2026",
+  "chipSub": "11TY \u00b7 DIP12",
+  "copyrightYear": "2026"
+}

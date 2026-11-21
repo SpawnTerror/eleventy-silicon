@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+---
+
+<h1 id="{{ title | slugify }}"><a href="#{{ title | slugify }}">{{ title }}</a></h1>
+
+<div class="post-meta">
+    <span class="post-date">{{ date | isoDate }}</span>
+    <span class="post-read-time">· {{ content | readingTime }}</span>
+    <div class="post-tags-container">
+        {% for tag in tags %}
+            {% if tag != "posts" %}
+                <a href="/tags/{{ tag | lower }}/" class="post-tag">{{ tag }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{{ content | safe }}
+
+{% set newerPost = collections.posts | getPreviousCollectionItem(page) %}
+{% set olderPost = collections.posts | getNextCollectionItem(page) %}
+{% if olderPost or newerPost %}
+<nav class="post-nav" aria-label="Adjacent articles">
+  {% if olderPost %}
+  <a href="{{ olderPost.url }}" class="post-nav-card post-nav-prev">
+    <span class="post-nav-label">&larr; Older note</span>
+    <span class="post-nav-title">{{ olderPost.data.title }}</span>
+  </a>
+  {% else %}
+  <div></div>
+  {% endif %}
+
+  {% if newerPost %}
+  <a href="{{ newerPost.url }}" class="post-nav-card post-nav-next">
+    <span class="post-nav-label">Newer note &rarr;</span>
+    <span class="post-nav-title">{{ newerPost.data.title }}</span>
+  </a>
+  {% endif %}
+</nav>
+{% endif %}

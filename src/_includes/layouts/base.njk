@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ description or site.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <title>{{ title }} · {{ site.name }}</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23121212' stroke='%23d97706' stroke-width='2'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23d97706' font-family='monospace' font-weight='bold' font-size='13'>S12</text></svg>">
+  <style>
+    {% include "css/main.css" %}
+  </style>
+  <link id="prism-theme" rel="stylesheet" href="/css/prism/dark-orange.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const theme = savedTheme ? savedTheme : 'dark';
+      const accent = localStorage.getItem('accent') === 'green' ? 'green' : 'orange';
+
+      if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      if (accent === 'green') document.documentElement.setAttribute('data-accent', 'green');
+      if (localStorage.getItem('crt') === 'on') document.documentElement.setAttribute('data-crt', 'on');
+
+      document.getElementById('prism-theme').href = `/css/prism/${theme}-${accent}.css`;
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <a href="/" class="prompt">
+        <svg class="logo-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="5" y="4" width="14" height="16" rx="2"></rect>
+          <path d="M10 4a2 2 0 0 0 4 0"></path>
+          <line x1="2" y1="7" x2="5" y2="7"></line>
+          <line x1="2" y1="12" x2="5" y2="12"></line>
+          <line x1="2" y1="17" x2="5" y2="17"></line>
+          <line x1="19" y1="7" x2="22" y2="7"></line>
+          <line x1="19" y1="12" x2="22" y2="12"></line>
+          <line x1="19" y1="17" x2="22" y2="17"></line>
+        </svg>
+        <span>{{ site.prompt }}</span>
+      </a>
+
+      <div class="header-controls">
+        <button id="accent-toggle" aria-label="Toggle accent colour" title="Toggle accent colour (Orange / Green)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="12" cy="12" r="7"></circle>
+          </svg>
+        </button>
+        <button id="crt-toggle" aria-label="Toggle CRT scanlines" title="Toggle CRT scanlines">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <line x1="6" y1="7" x2="18" y2="7"></line>
+            <line x1="6" y1="10" x2="18" y2="10"></line>
+            <line x1="6" y1="13" x2="18" y2="13"></line>
+          </svg>
+        </button>
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg id="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg id="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="term-bar">
+      <div class="term-chip">
+        <span class="term-dot" aria-hidden="true"></span>
+        <span><strong>{{ collections.posts | length }}</strong> notes · <strong>6</strong> topics</span>
+      </div>
+      {% if collections.posts.length %}
+      <a href="/archive/" class="term-chip term-link">
+        <span>updated <strong>{{ collections.posts[0].date | isoDate }}</strong></span>
+      </a>
+      {% endif %}
+    </div>
+
+    <nav class="site-nav" id="site-nav">
+      <a href="/archive/">archive/</a>
+      <a href="/topics/">topics/</a>
+      <a href="/about/">about/</a>
+      <a href="/contact/">contact/</a>
+      <a href="/sitemap/">sitemap/</a>
+    </nav>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer>
+    <div class="footer-brand">© {{ site.copyrightYear }} {{ site.domain }}</div>
+    <div class="footer-links">
+      <a href="/contact/">contact/</a>
+      <span aria-hidden="true">·</span>
+      <a href="/sitemap/">sitemap/</a>
+      <span aria-hidden="true">·</span>
+      <a href="/privacy/">privacy/</a>
+    </div>
+    <div class="footer-top">
+      <a href="#">top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const html = document.documentElement;
+    const prismLink = document.getElementById('prism-theme');
+
+    function syncPrism() {
+      const theme = html.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const accent = html.getAttribute('data-accent') === 'green' ? 'green' : 'orange';
+      prismLink.href = `/css/prism/${theme}-${accent}.css`;
+    }
+
+    /* Theme Toggle Logic */
+    const themeBtn = document.getElementById('theme-toggle');
+    const moon = document.getElementById('moon-icon');
+    const sun = document.getElementById('sun-icon');
+
+    function syncThemeIcon() {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      moon.style.display = isDark ? 'none' : 'block';
+      sun.style.display = isDark ? 'block' : 'none';
+    }
+    syncThemeIcon();
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      syncThemeIcon();
+      syncPrism();
+    });
+
+    /* Accent Toggle Logic (Orange / Green) */
+    const accentBtn = document.getElementById('accent-toggle');
+    accentBtn.addEventListener('click', () => {
+      const isGreen = html.getAttribute('data-accent') === 'green';
+      if (isGreen) {
+        html.removeAttribute('data-accent');
+        localStorage.setItem('accent', 'orange');
+      } else {
+        html.setAttribute('data-accent', 'green');
+        localStorage.setItem('accent', 'green');
+      }
+      syncPrism();
+    });
+
+    /* CRT Scanline Toggle Logic */
+    const crtBtn = document.getElementById('crt-toggle');
+    function syncCrtBtn() {
+      crtBtn.classList.toggle('active', html.getAttribute('data-crt') === 'on');
+    }
+    syncCrtBtn();
+
+    crtBtn.addEventListener('click', () => {
+      const isCrt = html.getAttribute('data-crt') === 'on';
+      if (isCrt) {
+        html.removeAttribute('data-crt');
+        localStorage.setItem('crt', 'off');
+      } else {
+        html.setAttribute('data-crt', 'on');
+        localStorage.setItem('crt', 'on');
+      }
+      syncCrtBtn();
+    });
+
+    /* Code Copy Logic */
+    document.querySelectorAll('pre[class*="language-"]').forEach(pre => {
+      const btn = document.createElement('button');
+      btn.className = 'copy-code-btn';
+      btn.textContent = 'copy';
+      btn.addEventListener('click', () => {
+        const codeText = pre.querySelector('code').innerText;
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(codeText).then(showSuccess);
+        } else {
+          const textArea = document.createElement("textarea");
+          textArea.value = codeText;
+          textArea.style.position = "absolute";
+          textArea.style.left = "-999999px";
+          document.body.prepend(textArea);
+          textArea.select();
+          try { document.execCommand('copy'); showSuccess(); }
+          catch (error) { console.error('Copy failed', error); }
+          finally { textArea.remove(); }
+        }
+        function showSuccess() {
+          btn.textContent = 'copied!';
+          btn.classList.add('copied');
+          setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+        }
+      });
+      pre.appendChild(btn);
+    });
+
+    /* Spoiler Click Logic */
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('spoiler-inline')) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+  </script>
+</body>
+</html>

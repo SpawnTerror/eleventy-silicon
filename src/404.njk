@@ -1,0 +1,56 @@
+---
+layout: layouts/base.njk
+title: "404 · JMP ($03FF)"
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+
+<div class="err-404">
+  <h1 id="404"><a href="#404">404 — Page Boundary Fault</a></h1>
+
+  <svg class="err-chip" viewBox="16 10 88 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <!-- DIP IC Body & Notch -->
+    <rect x="34" y="14" width="52" height="72" rx="4" />
+    <path d="M52 14a8 8 0 0 0 16 0" />
+    <!-- Left Pins (Pin 3 broken) -->
+    <line x1="20" y1="26" x2="34" y2="26" />
+    <line x1="20" y1="42" x2="34" y2="42" />
+    <polyline points="20,62 27,58 34,58" stroke="var(--accent)" />
+    <line x1="20" y1="74" x2="34" y2="74" />
+    <!-- Right Pins -->
+    <line x1="86" y1="26" x2="100" y2="26" />
+    <line x1="86" y1="42" x2="100" y2="42" />
+    <line x1="86" y1="58" x2="100" y2="58" />
+    <line x1="86" y1="74" x2="100" y2="74" />
+    <!-- Hardware Bug on Die -->
+    <g stroke="var(--accent)">
+      <ellipse cx="60" cy="54" rx="8" ry="11" fill="var(--accent-soft)" />
+      <path d="M55 44a5 5 0 0 1 10 0" />
+      <line x1="60" y1="43" x2="60" y2="65" />
+      <!-- Antennae -->
+      <path d="M57 39l-4-5" />
+      <path d="M63 39l4-5" />
+      <!-- Legs -->
+      <path d="M52 49l-6-3" />
+      <path d="M52 54l-7 0" />
+      <path d="M52 59l-6 3" />
+      <path d="M68 49l6-3" />
+      <path d="M68 54l7 0" />
+      <path d="M68 59l6 3" />
+    </g>
+  </svg>
+
+  <pre class="err-dump"><code>$0300: 04          ; wrapped high byte (NMOS 6502 bug)
+$03FF: 04          ; low byte
+$0404: 00  BRK     ; PAGE REQUESTED NOT FOUND
+
+> JMP ($03FF)      ; expected $0400, landed at $0404
+PC:$0404  A:$04  X:$00  Y:$04  SP:$FD  SR:NV-BDIZC (00110100)
+ADDR: <span id="err-path">/404.html</span></code></pre>
+
+  <p class="err-action"><a href="/" class="prompt">JMP ($FFFC) &rightarrow; reset to home</a></p>
+</div>
+
+<script>
+  document.getElementById('err-path').textContent = window.location.pathname;
+</script>

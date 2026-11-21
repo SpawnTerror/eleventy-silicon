@@ -1,0 +1,6 @@
+/* TEAM */
+Author: Your Name
+Site: https://example.com
+
+/* SITE */
+Built with: Eleventy 3 + eleventy-silicon theme

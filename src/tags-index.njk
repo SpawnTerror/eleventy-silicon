@@ -1,0 +1,56 @@
+---
+layout: layouts/base.njk
+title: "Topics"
+permalink: /topics/
+eleventyExcludeFromCollections: true
+---
+
+<h1 id="topics"><a href="#topics">Topics</a></h1>
+<p>A categorized index of documentation, write-ups, and project notes.</p>
+
+{% set topics = [
+  {
+    title: "Coding",
+    slug: "coding",
+    description: "Software development, scripting, and algorithmic puzzles. Covers Python, Bash, C++, PHP, and web technologies."
+  },
+  {
+    title: "Hardware",
+    slug: "hardware",
+    description: "Physical electronics, component-level modifications, and diagnostics. Covers FPGA, Raspberry Pi, Arduino, and storage recovery."
+  },
+  {
+    title: "Linux",
+    slug: "linux",
+    description: "Operating system administration, networking, and server deployment. Covers Ubuntu, Proxmox, and security/pentesting environments."
+  },
+  {
+    title: "Automation",
+    slug: "automation",
+    description: "Industrial control systems and plant operations. Covers PLCs, TIA Portal, KUKA robotics, and ladder logic (LAD)."
+  },
+  {
+    title: "Design",
+    slug: "design",
+    description: "CAD modeling, drafting, and 3D prototyping. Covers SolidWorks and mechanical engineering prints."
+  },
+  {
+    title: "Retro",
+    slug: "retro",
+    description: "Retro computing restoration and hardware mods. Covers classic system upgrades like the Indivision AGA and custom I/O adapters."
+  }
+] %}
+
+<div class="topic-list">
+{% for topic in topics %}
+  {% set topicPosts = collections[topic.slug] or collections[topic.title] or collections[topic.title | lower] %}
+  {% set count = topicPosts | length if topicPosts else 0 %}
+  <div class="topic-item">
+    <div class="topic-header">
+      <a href="/tags/{{ topic.slug }}/" class="topic-title">{{ topic.title }}</a>
+      <span class="topic-count">{{ count }} {{ "article" if count == 1 else "articles" }}</span>
+    </div>
+    <p class="topic-description">{{ topic.description }}</p>
+  </div>
+{% endfor %}
+</div>

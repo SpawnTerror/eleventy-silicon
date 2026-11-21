@@ -1,0 +1,32 @@
+---
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - post
+    - posts
+layout: layouts/base.njk
+permalink: /tags/{{ tag | slugify }}/
+eleventyComputed:
+  title: "{{ tag }}"
+---
+
+<h1 id="topic"><a href="#topic">#{{ tag }}</a></h1>
+
+<ul class="post-list">
+{% set taglist = collections[tag] %}
+{% for post in taglist | reverse %}
+  <li class="post-row">
+    <div class="post-row-main">
+      <a href="{{ post.url }}" class="post-row-title">{{ post.data.title }}</a>
+    </div>
+    <div class="post-row-meta">
+      <span class="post-date">{{ post.date | isoDate }}</span>
+    </div>
+  </li>
+{% endfor %}
+</ul>
+
+<p style="margin-top: 1.5rem;"><a href="/topics/">&larr; back to all topics</a></p>
