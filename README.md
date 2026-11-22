@@ -6,13 +6,23 @@ Zero CSS frameworks, zero third-party fonts, zero analytics, and automatic AVIF/
 
 ## Screenshots
 
-> Add your own screenshots inside `./screenshots/` (`desktop-home.png`, `mobile-home.png`, `desktop-topics.png`, `desktop-about.png`) and uncomment the table below:
->
-> ```markdown
-> | Desktop (Dark Orange) | Mobile |
-> | --- | --- |
-> | ![Eleventy Silicon Desktop](./screenshots/desktop-home.png) | ![Eleventy Silicon Mobile](./screenshots/mobile-home.png) |
-> ```
+### Desktop
+
+| Front Page (Dark Orange) | Article View |
+| --- | --- |
+| ![Desktop Front Page](./screenshots/nodetwelve-desktop-theme-front-page.png) | ![Desktop Article View](./screenshots/nodetwelve-desktop-theme-article.png) |
+
+### Mobile Views
+
+| Front Page | Topics Directory | Article View |
+| --- | --- | --- |
+| ![Mobile Front Page](./screenshots/nodetwelve-mobile-front-page.png) | ![Mobile Topics](./screenshots/nodetwelve-mobile-topics.png) | ![Mobile Article](./screenshots/nodetwelve-mobile-article.png) |
+
+### Built-in Colour Palettes
+
+| Dark Green | Light Green | Light Orange |
+| --- | --- | --- |
+| ![Dark Green Theme](./screenshots/nodetwelve-mobile-theme-dark-green.png) | ![Light Green Theme](./screenshots/nodetwelve-mobile-theme-light-green.png) | ![Light Orange Theme](./screenshots/nodetwelve-mobile-theme-light-orange.png) |
 
 ## Features
 
