@@ -4,7 +4,7 @@ A fast, minimalist monospace [Eleventy 3](https://www.11ty.dev/) theme designed 
 
 Zero CSS frameworks, zero third-party fonts, zero analytics, and automatic AVIF/WebP image optimisation — built to score 99–100 on Lighthouse out of the box.
 
-[Live demo at nodetwelve.com](https://nodetwelve.com]
+[Live demo at nodetwelve.com](https://nodetwelve.com)
 
 ## Screenshots
 
