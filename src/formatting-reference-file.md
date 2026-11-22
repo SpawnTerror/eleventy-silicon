@@ -2,7 +2,11 @@
 layout: layouts/base.njk
 title: "Formatting Reference"
 eleventyExcludeFromCollections: true
+description: "Markdown formatting and callout reference."
+noindex: true
 ---
+
+# Formatting Reference
 
 ## Headings
 Front matter handles the H1. Using H2 for main sections.

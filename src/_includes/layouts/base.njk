@@ -3,12 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ description or site.description }}">
+  {% set metaDesc = description or site.description %}
+  <meta name="description" content="{{ metaDesc }}">
+  {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:type" content="{{ 'article' if layout == 'layouts/post.njk' else 'website' }}">
+  <meta property="og:title" content="{{ title }} · {{ site.name }}">
+  <meta property="og:description" content="{{ metaDesc }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ title }} · {{ site.name }}">
+  <meta name="twitter:description" content="{{ metaDesc }}">
   <title>{{ title }} · {{ site.name }}</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23121212' stroke='%23d97706' stroke-width='2'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23d97706' font-family='monospace' font-weight='bold' font-size='13'>S12</text></svg>">
   <style>
-    {% include "css/main.css" %}
+    {% set css %}{% include "css/main.css" %}{% endset %}{{ css | cssmin | safe }}
   </style>
   <link id="prism-theme" rel="stylesheet" href="/css/prism/dark-orange.css">
   <script>

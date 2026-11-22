@@ -36,6 +36,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/fonts");
   eleventyConfig.addPassthroughCopy("src/css/prism");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy("src/humans.txt");
   eleventyConfig.addPassthroughCopy("src/files");
 
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -73,6 +74,21 @@ module.exports = function(eleventyConfig) {
     return new Date(date).toISOString().split('T')[0];
   });
 
+  eleventyConfig.addFilter("cssmin", function(code) {
+    if (!code) return "";
+    const urls = [];
+    let s = String(code).replace(/url\(([^)]+)\)/g, (m) => {
+      urls.push(m);
+      return `__URL_${urls.length - 1}__`;
+    });
+    s = s.replace(/\/\*[\s\S]*?\*\//g, "")
+         .replace(/\s+/g, " ")
+         .replace(/\s*([{}:;,>~+])\s*/g, "$1")
+         .replace(/;}/g, "}")
+         .trim();
+    return s.replace(/__URL_(\d+)__/g, (_, i) => urls[Number(i)]);
+  });
+
   eleventyConfig.addFilter("limit", function(array, limit) {
     if (!array) return [];
     return array.slice(0, limit);
@@ -88,8 +104,8 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
-    formats: ["avif", "webp", "auto"],
-    widths: [720, 1440, "auto"],
+    formats: ["avif", "webp", "jpeg"],
+    widths: [720, 1440],
     defaultAttributes: {
       loading: "lazy",
       decoding: "async",
